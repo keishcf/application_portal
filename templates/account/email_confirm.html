@@ -1,0 +1,42 @@
+{% extends "account/base_entrance.html" %}
+{% load i18n %}
+{% load account %}
+{% load allauth %}
+{% block head_title %}
+    {% trans "Confirm Email Address" %}
+{% endblock head_title %}
+{% block content %}
+    <div class="flex items-center justify-center h-screen">
+        <div class="sm:mx-auto sm:w-full sm:max-w-md space-y-4">
+            <div class="text-center space-y-8">
+                <div class="flex justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-envelope-check" viewBox="0 0 16 16">
+                        <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z"/>
+                        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/>
+                    </svg>
+                </div>
+                {% element h1 %}
+                    <h2 class="mt-5 text-2xl font-bold leading-9 tracking-tight text-gray-900">{% trans "Confirm Email Address" %}</h2>
+                {% endelement %}
+                {% if confirmation %}
+                    {% user_display confirmation.email_address.user as user_display %}
+                    {% if can_confirm %}
+                        <p class="text-zinc-500 font-normal"> {% blocktrans with confirmation.email_address.email as email %}Please confirm that <a class="text-black font-bold" href="mailto:{{ email }}">{{ email }}</a> is an email address for user <span class="font-bold text-black">{{ user_display }}</span>.{% endblocktrans %}</a></p>
+                        <form class="space-y-4" method="post" action="{{ action_url }}">
+                            {% csrf_token %}
+                            <div>
+                                <button type="submit" class="flex w-full justify-center rounded-md bg-zinc-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-zinc-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600">Confirm Email</button>
+                            </div>
+                        </form>
+                    {% else %}
+                        <p class="text-zinc-500 font-normal">  {% blocktrans %}Unable to confirm {{ email }} because it is already confirmed by a different account.{% endblocktrans %}</a></p>
+                    {% endif %}
+                {% else %}
+                    {% url 'account_email' as email_url %}
+                    <p class="text-zinc-500 font-normal">{% blocktrans %}This email confirmation link expired or is invalid. Please <a class="font-bold text-black" href="{{ email_url }}">issue a new email confirmation request</a>.{% endblocktrans %}</a></p>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
