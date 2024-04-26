@@ -6,7 +6,7 @@ Welcome to Django Awesome App! This is a powerful web application built with Dja
 
 1. Clone the repository:
     ```bash
-    git clone https://github.com/your_username/django-awesome-app.git
+    git clone [https://github.com/your_username/django-awesome-app.git](https://github.com/keishcf/application_portal.git)
     ```
    
 2. Navigate into the project directory:
