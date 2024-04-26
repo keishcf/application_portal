@@ -4,14 +4,14 @@ Welcome to Django Awesome App! This is a powerful web application built with Dja
 
 ## Installation
 
-1. Clone the repository:
+1. Create a directory and then Clone the repository:
     ```bash
-    git clone [https://github.com/your_username/django-awesome-app.git](https://github.com/keishcf/application_portal.git)
-    ```
+    git clone https://github.com/keishcf/application_portal.git
+    ``
    
-2. Navigate into the project directory:
+2. Navigate into the project directory :
     ```bash
-    cd django-awesome-app
+    cd application_portal
     ```
 
 3. Create a virtual environment (optional but recommended):
