@@ -18,7 +18,7 @@ class AddPersonalInformationView(LoginRequiredMixin, views.View):
     
     def get(self, request):
         try:
-            self.application = UserApplication.objects.get(user=self.request.user)
+            self.application , created= UserApplication.objects.get_or_create(user=self.request.user)
             try:
                 personal_info = ApplicantPersonalInformation.objects.get(application=self.application)
                 form = PersonalInformationForm(instance=personal_info)
