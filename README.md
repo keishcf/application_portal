@@ -80,7 +80,7 @@ Welcome to Django Awesome App! This is a powerful web application built with Dja
         example.com
         -------------------------------------------------------------------------------
         ```
-    2. Then copy and paste the email link sent to activate:
+    2. Then copy and paste the email link sent to activate that looks like this yours might be different though:
         ```python
         To confirm this is correct, go to http://127.0.0.1:8000/account/confirm-email/Mg:1s0CMU:y2sY1OyUNdYkCT1bs8SccvxsaJERCpXo7zur1x6XmO0/
         ```
