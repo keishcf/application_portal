@@ -136,7 +136,7 @@
                 <div class="col-span-2">
                     <label for="{{ form.date_of_birth.id_for_label }}" class="block text-sm font-medium leading-6 text-gray-900">{{ form.date_of_birth.label }}</label>
                     <div class="mt-2">
-                        <input type="{{ form.date_of_birth.field.widget.input_type }}" name="{{ form.date_of_birth.html_name }}" autocomplete="form.date_of_birth.html_name" maxlength="{{ form.date_of_birth.field.max_length }}" id="{{ form.date_of_birth.id_for_label }}" value="{{ form.date_of_birth.value|default_if_none:'' }}" required class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset {% if form.errors %} ring-red-400 placeholder:text-red-500 {% else %} ring-gray-300 placeholder:text-gray-400 {% endif %} focus:ring-2 focus:ring-inset focus:ring-zinc-600 sm:text-sm sm:leading-6">
+                        <input type="{{ form.date_of_birth.field.widget.input_type }}"  name="{{ form.date_of_birth.html_name }}" autocomplete="form.date_of_birth.html_name" maxlength="{{ form.date_of_birth.field.max_length }}" id="{{ form.date_of_birth.id_for_label }}" value="{{ form.date_of_birth.value|default_if_none:""|date:"Y-m-d" }}" required class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset {% if form.errors %} ring-red-400 placeholder:text-red-500 {% else %} ring-gray-300 placeholder:text-gray-400 {% endif %} focus:ring-2 focus:ring-inset focus:ring-zinc-600 sm:text-sm sm:leading-6">
                     </div>
                     {% if form.date_of_birth.errors %}
                         <div class="mt-2 text-sm text-red-600">{{ form.date_of_birth.errors }}</div>
@@ -166,7 +166,7 @@
                     {% endif %}
                 </div>
 
-                {% comment %} # phone_number {% endcomment %}
+                {% comment %} # address {% endcomment %}
                 <div class="col-span-2">
                     <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium leading-6 text-gray-900">{{ form.address.label }}</label>
                     <div class="mt-2">
