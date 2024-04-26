@@ -14,14 +14,14 @@
         <ul class="relative flex flex-row gap-x-2">
             <!-- Item -->
             <li class="flex items-center gap-x-2 shrink basis-0 flex-1 group">
-                <div class="min-w-7 min-h-7 inline-flex justify-center items-center text-xs align-middle">
+                <a href="{% url "add_personal_information" %}" class="min-w-7 min-h-7 inline-flex justify-center items-center text-xs align-middle">
                   <span class="size-7 flex justify-center items-center flex-shrink-0 bg-gray-800 font-medium text-white rounded-full">
                     1
                   </span>
                   <span class="ms-2 block text-sm font-medium text-gray-800">
                     Personal Information
                   </span>
-                </div>
+                </a>
                 <div class="w-full h-px flex-1 bg-gray-200 group-last:hidden"></div>
             </li>
             <!-- End Item -->
@@ -194,7 +194,6 @@
                 </div>
             </div>
             <div class="mt-10 flex gap-20">
-
                 <button type="submit" class="flex w-full justify-center rounded-md bg-zinc-800 px-6 py-3 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-zinc-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600">Next </button>
             </div>
         </form>

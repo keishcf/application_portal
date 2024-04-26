@@ -44,7 +44,7 @@ class AddPersonalInformationView(LoginRequiredMixin, views.View):
 
         return render(request, self.template_name, {'form': form})
     
-class AddAcademicBackgroundView(views.View):
+class AddAcademicBackgroundView(LoginRequiredMixin, views.View):
     template_name = "apply/academic_background.html"
     
     def get(self, request):
@@ -55,8 +55,9 @@ class AddAcademicBackgroundView(views.View):
                 form = AcademicBackgroundForm(instance=personal_info)
             except ApplicantAcademicBackground.DoesNotExist:
                 form = AcademicBackgroundForm()
-        except ApplicantAcademicBackground.DoesNotExist:
+        except UserApplication.DoesNotExist:
             form = AcademicBackgroundForm()
+            return redirect('add_personal_information')
         
         return render(request, self.template_name, {"form": form})
     
@@ -76,7 +77,7 @@ class AddAcademicBackgroundView(views.View):
         return render(request, self.template_name, {'form': form})
     
 
-class AddExtracurricularActivityView(views.View):
+class AddExtracurricularActivityView(LoginRequiredMixin, views.View):
     template_name = "apply/extracurricular_activity.html"
     
     def get(self, request):
@@ -87,8 +88,10 @@ class AddExtracurricularActivityView(views.View):
                 form = ExtracurricularActivityForm(instance=personal_info)
             except ApplicantExtracurricularActivity.DoesNotExist:
                 form = ExtracurricularActivityForm()
-        except ApplicantExtracurricularActivity.DoesNotExist:
+                
+        except UserApplication.DoesNotExist:
             form = ExtracurricularActivityForm()
+            return redirect('add_personal_information')
         
         return render(request, self.template_name, {"form": form})
 
@@ -107,7 +110,7 @@ class AddExtracurricularActivityView(views.View):
 
         return render(request, self.template_name, {'form': form})
 
-class AddDocumentView(views.View):
+class AddDocumentView(LoginRequiredMixin, views.View):
     template_name = "apply/document.html"
     
     def get(self, request):
@@ -118,8 +121,10 @@ class AddDocumentView(views.View):
                 form = DocumentForm(instance=personal_info)
             except ApplicantDocument.DoesNotExist:
                 form = DocumentForm()
-        except ApplicantDocument.DoesNotExist:
+        except UserApplication.DoesNotExist:
             form = DocumentForm()
+            return redirect('add_personal_information')
+            
         
         return render(request, self.template_name, {"form": form})
 
