@@ -101,6 +101,7 @@
             <div class="col-span-2">
                 <label for="{{ form.degree.id_for_label }}" class="block text-sm font-medium leading-6 text-gray-900">{{ form.degree.label }}</label>
                 <div class="mt-2">
+                    ss
                     {{ form.degree }}
                 </div>
                 {% if form.degree.errors %}
@@ -143,7 +144,10 @@
                         <input type="date" name="graduation_year" min="2000-01-01" max="2025-12-31" step="1"> {% endcomment %}
 
                         <input type="{{ form.graduation_year.field.widget.input_type }}" name="{{ form.graduation_year.html_name }}" autocomplete="form.graduation_year.html_name" maxlength="{{ form.graduation_year.field.max_length }}" id="{{ form.graduation_year.id_for_label }}" value="{{ form.graduation_year.value|default_if_none:''|date:"Y-m-d" }}" required class="block w-full rounded-md border-0 py-2 px-3 text-gray-900 shadow-sm ring-1 ring-inset {% if form.errors %} ring-red-400 placeholder:text-red-500 {% else %} ring-gray-300 placeholder:text-gray-400 {% endif %} focus:ring-2 focus:ring-inset focus:ring-zinc-600 sm:text-sm sm:leading-6">
-                    </div>
+                    </div>  
+                    jhh
+                    <input type="tel" />
+
                     {% if form.graduation_year.errors %}
                         <div class="mt-2 text-sm text-red-600">{{ form.graduation_year.errors }}</div>
                     {% endif %}

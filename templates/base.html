@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{% static 'src/output.css' %}">
         {% endcompress %}
         {% comment %} <script src="https://cdn.tailwindcss.com"></script> {% endcomment %}
-        <title>{% block head_title %}Home{% endblock head_title %} - Apllication Portal</title>
+        <title>{% block head_title %}Home{% endblock %} - Apllication Portal</title>
     </head>
     <body class="bg-zinc-100">
         {% if messages %}
@@ -37,6 +37,7 @@
         {% endblock body %}
         {% block extra_body %}
         {% endblock extra_body %}
+        <script src="https://unpkg.com/htmx.org@1.9.12"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js" async defer></script>
 
     </body>

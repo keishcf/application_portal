@@ -86,13 +86,14 @@
                         {{ form.cv.label }}
                     </p>
                     <label for="{{ form.cv.id_for_label }}" class="sr-only">{{ form.cv.label }}</label>
-                    <input type="{{ form.cv.field.widget.input_type }}" name="{{ form.cv.html_name }}" id="{{ form.cv.id_for_label }}" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-non file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4"
-                    >
-                    {% if form.cv.errors %}
-                        <div class="mt-2 text-sm text-red-600">{{ form.cv.errors }}</div>
-                    {% endif %}
-                    
-                    {% if form.cv.help_text %}
+                    <input type="{{ form.cv.field.widget.input_type }}" accept=".pdf" name="{{ form.cv.html_name }}" id="{{ form.cv.id_for_label }}" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-non file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4"
+                    >                    
+                    {% if form.instance.cv %}
+                        
+                        <div class="mt-2 text-sm text-gray-500 " id="{{ form.cv.auto_id }}_helptext">
+                            Current File: <span class="text-black font-bold">{{ form.instance.cv.name }}</span>
+                        </div>
+                    {% elif form.cv.help_text %}
                         <div class="mt-2 text-sm text-gray-500 " id="{{ form.cv.auto_id }}_helptext">
                             {{ form.cv.help_text|safe }}
                         </div>
@@ -104,13 +105,17 @@
                         {{ form.transcript.label }}
                     </p>
                     <label for="{{ form.transcript.id_for_label }}" class="sr-only">{{ form.transcript.label }}</label>
-                    <input type="{{ form.transcript.field.widget.input_type }}" name="{{ form.transcript.html_name }}" id="{{ form.transcript.id_for_label }}" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-non file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4"
+                    <input type="{{ form.transcript.field.widget.input_type }}" accept=".pdf" name="{{ form.transcript.html_name }}" id="{{ form.transcript.id_for_label }}" class="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-non file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4"
                     >
                     {% if form.transcript.errors %}
                         <div class="mt-2 text-sm text-red-600">{{ form.transcript.errors }}</div>
                     {% endif %}
                     
-                    {% if form.transcript.help_text %}
+                    {% if form.instance.transcript %}
+                        <div class="mt-2 text-sm text-gray-500 " id="{{ form.transcript.auto_id }}_helptext">
+                            Current File: <span class="text-black font-bold">{{ form.instance.transcript.name }}</span>
+                        </div>
+                    {% elif form.transcript.help_text %}
                         <div class="mt-2 text-sm text-gray-500 " id="{{ form.transcript.auto_id }}_helptext">
                             {{ form.transcript.help_text|safe }}
                         </div>

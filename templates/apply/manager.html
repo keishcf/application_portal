@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}
+    {% trans "Signup" %}
+{% endblock head_title %}
+{% block content %}
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 h-screen gap-10">
+        <nav class="sm:mx-auto sm:w-full sm:max-w-5xl bg-white p-10 rounded-md">
+            <div class="flex justify-between items-center">
+                <div>
+                    <a href="{% url 'add_personal_information' %}" class="flex w-full justify-center rounded-full bg-zinc-800 px-10 py-4 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-zinc-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600">
+                        Add Application
+                    </a>
+                </div>
+                <div class="bg-zinc-50 border rounded-full p-4">
+                    <button type="button" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                        <span class="sr-only">Open user menu</span>
+                        <svg width="30px" height="20px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M691.573 338.89c-1.282 109.275-89.055 197.047-198.33 198.331-109.292 1.282-197.065-90.984-198.325-198.331-0.809-68.918-107.758-68.998-106.948 0 1.968 167.591 137.681 303.31 305.272 305.278C660.85 646.136 796.587 503.52 798.521 338.89c0.811-68.998-106.136-68.918-106.948 0z" fill="#4A5699" /><path d="M294.918 325.158c1.283-109.272 89.051-197.047 198.325-198.33 109.292-1.283 197.068 90.983 198.33 198.33 0.812 68.919 107.759 68.998 106.948 0C796.555 157.567 660.839 21.842 493.243 19.88c-167.604-1.963-303.341 140.65-305.272 305.278-0.811 68.998 106.139 68.919 106.947 0z" fill="#C45FA0" /><path d="M222.324 959.994c0.65-74.688 29.145-144.534 80.868-197.979 53.219-54.995 126.117-84.134 201.904-84.794 74.199-0.646 145.202 29.791 197.979 80.867 54.995 53.219 84.13 126.119 84.79 201.905 0.603 68.932 107.549 68.99 106.947 0-1.857-213.527-176.184-387.865-389.716-389.721-213.551-1.854-387.885 178.986-389.721 389.721-0.601 68.991 106.349 68.933 106.949 0.001z" fill="#E5594F" /></svg>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
+                        <div class="px-4 py-3">
+                        <span class="block text-sm text-gray-900">{{ user.username }}</span>
+                        <span class="block text-sm  text-gray-800 truncate ">{{ user.email }}</span>
+                        </div>
+                        <ul class="py-2" aria-labelledby="user-menu-button">
+                        <li>
+                            <a href="{% url 'account_logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        {% if user_application %}
+        <div class="sm:mx-auto sm:w-full sm:max-w-5xl bg-white p-10 rounded-md">
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                    <caption class="p-5 text-lg font-semibold text-left rtl:text-right text-gray-900 bg-white">
+                        All Applicant
+                        <p class="mt-1 text-sm font-normal text-gray-500">Browse a list of Applicant that Submitted remember some are still pending from the user side, view application, you can delete</p>
+                    </caption>
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Applicant Name
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Email
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Phone Number
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Address
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                <span class="sr-only">Edit</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for application in user_application %}
+                            <tr class="bg-white border-b">
+                                <th scope="row" class="px-6 py-4 font-medium capitalize text-gray-900 whitespace-nowrap">
+                                    <a href="{% url 'view_user_detail' application.user.username %}">
+                                    {{ application.personal_information.first_name }}
+                                    {{ application.personal_information.last_name }}
+                                        
+                                </a>
+
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{ application.user.email }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ application.personal_information.date_of_birth|date:"d/m/Y" }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ application.personal_information.address }}
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    {% include "snippets/delete_application.html" with user_application=application %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        
+
+        <div class="flex flex-col items-center">
+            <!-- Help text -->
+            <span class="text-sm text-gray-700">
+                Showing <span class="font-semibold text-gray-900">{{ page_obj.number }}</span> to <span class="font-semibold text-gray-900">10 applications</span> of <span class="font-semibold text-gray-900">{{ page_obj.paginator.num_pages }}</span> Applications Pages
+            </span>
+            <div class="inline-flex mt-2 xs:mt-0">
+            <!-- Buttons -->
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-zinc-900 bg-white rounded-s hover:bg-gray-100 border border-gray-700">
+                    <svg class="w-3.5 h-3.5 me-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5H1m0 0 4 4M1 5l4-4"/>
+                    </svg>
+                    Prev
+                </a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="flex items-center justify-center px-3 h-8 text-sm font-medium text-zinc-900 bg-white border border-gray-700 rounded-e hover:bg-gray-100">
+                    Next
+                    <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                    </svg>
+                </a>
+            {% endif %}
+            </div>
+        </div>
+        {% else %}
+        <div class="sm:mx-auto sm:w-full sm:max-w-5xl bg-white p-10 rounded-md">
+            <div class="relative overflow-x-auto">
+                No Application Yet
+            </div>
+        </div>
+        {% endif %}
+
+    
+    </div>
+{% endblock content %}

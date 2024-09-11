@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load i18n apply_tags %}
+{% block head_title %}
+    {% trans "Signup" %}
+{% endblock head_title %}
+{% block content %}
+    
+  
+    <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 h-screen gap-10 mt-10">
+
+        <nav class="sm:mx-auto sm:w-full sm:max-w-5xl bg-white p-10 rounded-md">
+            <div class="flex justify-between items-center">
+                <div>
+                    <a href="{% url 'add_personal_information' %}" class="flex w-full justify-center rounded-full bg-red-600 px-10 py-4 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-zinc-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600">
+                        Delete Application
+                    </a>
+                </div>
+                <div>
+                    <a href="{% url "application_pdf" user_application.user.id %}" download class="flex w-full justify-center rounded-full bg-red-600 px-10 py-4 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-zinc-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-600">
+                      Download Application As Pdf {{ user_application.user.id }}
+                    </a>
+                </div>
+                <div class="bg-zinc-50 border rounded-full p-4">
+                    <button type="button" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                        <span class="sr-only">Open user menu</span>
+                        <svg width="30px" height="20px" viewBox="0 0 1024 1024" class="icon"  version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M691.573 338.89c-1.282 109.275-89.055 197.047-198.33 198.331-109.292 1.282-197.065-90.984-198.325-198.331-0.809-68.918-107.758-68.998-106.948 0 1.968 167.591 137.681 303.31 305.272 305.278C660.85 646.136 796.587 503.52 798.521 338.89c0.811-68.998-106.136-68.918-106.948 0z" fill="#4A5699" /><path d="M294.918 325.158c1.283-109.272 89.051-197.047 198.325-198.33 109.292-1.283 197.068 90.983 198.33 198.33 0.812 68.919 107.759 68.998 106.948 0C796.555 157.567 660.839 21.842 493.243 19.88c-167.604-1.963-303.341 140.65-305.272 305.278-0.811 68.998 106.139 68.919 106.947 0z" fill="#C45FA0" /><path d="M222.324 959.994c0.65-74.688 29.145-144.534 80.868-197.979 53.219-54.995 126.117-84.134 201.904-84.794 74.199-0.646 145.202 29.791 197.979 80.867 54.995 53.219 84.13 126.119 84.79 201.905 0.603 68.932 107.549 68.99 106.947 0-1.857-213.527-176.184-387.865-389.716-389.721-213.551-1.854-387.885 178.986-389.721 389.721-0.601 68.991 106.349 68.933 106.949 0.001z" fill="#E5594F" /></svg>
+                    </button>
+                    <!-- Dropdown menu -->
+                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
+                        <div class="px-4 py-3">
+                        <span class="block text-sm text-gray-900">{{ user.username }}</span>
+                        <span class="block text-sm  text-gray-800 truncate ">{{ user.email }}</span>
+                        </div>
+                        <ul class="py-2" aria-labelledby="user-menu-button">
+                        <li>
+                            <a href="{% url 'account_logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="sm:mx-auto sm:w-full sm:max-w-5xl bg-white p-10 rounded-md">
+          {% with application=user_application.personal_information %}
+            <div class="px-4 sm:px-0">
+              <h3 class="text-base font-semibold leading-7 text-gray-900">Applicant Information</h3>
+              <p class="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
+            </div>
+            <div class="mt-6 border-t border-gray-100">
+              <dl class="divide-y divide-gray-100">
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt class="text-sm font-medium leading-6 text-gray-900">Full name</dt>
+                  <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ application.first_name }} {{ application.last_name }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt class="text-sm font-medium leading-6 text-gray-900">Phone Number</dt>
+                  <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ application.phone_number }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt class="text-sm font-medium leading-6 text-gray-900">Email address</dt>
+                  <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ user_application.user.email }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt class="text-sm font-medium leading-6 text-gray-900">Date Of Birth</dt>
+                  <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ application.date_of_birth }}</dd>
+                </div>
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt class="text-sm font-medium leading-6 text-gray-900">About</dt>
+                  <dd class="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{{ application.bio }}</dd>
+                </div>
+                {% endwith %}
+                {% with application=user_application.documents %}
+
+                <div class="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                  <dt class="text-sm font-medium leading-6 text-gray-900">Attachments</dt>
+                  <dd class="mt-2 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                    <ul role="list" class="divide-y divide-gray-100 rounded-md border border-gray-200">
+                      <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+                        <div class="flex w-0 flex-1 items-center">
+                          <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4C4 3.44772 4.44772 3 5 3H14H14.5858C14.851 3 15.1054 3.10536 15.2929 3.29289L19.7071 7.70711C19.8946 7.89464 20 8.149 20 8.41421V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V4Z" stroke="#200E32" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M20 8H15V3" stroke="#200E32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.5 13H11V17H11.5C12.6046 17 13.5 16.1046 13.5 15C13.5 13.8954 12.6046 13 11.5 13Z" stroke="#200E32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.5 17V13L17.5 13" stroke="#200E32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 15H17" stroke="#200E32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 17L7 15.5M7 15.5L7 13L7.75 13C8.44036 13 9 13.5596 9 14.25V14.25C9 14.9404 8.44036 15.5 7.75 15.5H7Z" stroke="#200E32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          
+                            {% comment %} <div href="{{ application.cv.url }}" class="ml-4 flex min-w-0 flex-1 gap-2"> {% endcomment %}
+                              {% comment %} <span class="truncate font-medium">{{ application.cv.name|pdf_name }}</span> {% endcomment %}
+                              {% comment %} <span class="flex-shrink-0 text-gray-400">{{application.cv.size|mbs }}</span> {% endcomment %}
+                            {% comment %} </div> {% endcomment %}
+                          
+                        </div>
+                        <div class="ml-4 flex-shrink-0">
+                          {% comment %} <a href="{{ application.cv.url }}" download="{{ application.cv.name }" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a> {% endcomment %}
+                        </div>
+                      </li>
+                      <li class="flex items-center justify-between py-4 pl-4 pr-5 text-sm leading-6">
+                        <div class="flex w-0 flex-1 items-center">
+                          <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 4C4 3.44772 4.44772 3 5 3H14H14.5858C14.851 3 15.1054 3.10536 15.2929 3.29289L19.7071 7.70711C19.8946 7.89464 20 8.149 20 8.41421V20C20 20.5523 19.5523 21 19 21H5C4.44772 21 4 20.5523 4 20V4Z" stroke="#200E32" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M20 8H15V3" stroke="#200E32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M11.5 13H11V17H11.5C12.6046 17 13.5 16.1046 13.5 15C13.5 13.8954 12.6046 13 11.5 13Z" stroke="#200E32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.5 17V13L17.5 13" stroke="#200E32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M16 15H17" stroke="#200E32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M7 17L7 15.5M7 15.5L7 13L7.75 13C8.44036 13 9 13.5596 9 14.25V14.25C9 14.9404 8.44036 15.5 7.75 15.5H7Z" stroke="#200E32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                          {% comment %} <div href="{{ application.transcript.url }}" class="ml-4 flex min-w-0 flex-1 gap-2"> {% endcomment %}
+                            {% comment %} <span class="truncate font-medium">{{ application.transcript.name|pdf_name }}</span> {% endcomment %}
+                            {% comment %} <span class="flex-shrink-0 text-gray-400">{{application.transcript.size|mbs }}</span> {% endcomment %}
+                          </div>
+                        </div>
+                        <div class="ml-4 flex-shrink-0">
+                          {% comment %} <a href="{{ application.transcript.url }}" download="{{ application.transcript.name }" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a> {% endcomment %}
+                        </div>
+                      </li>
+                    </ul>
+                  </dd>
+                </div>
+
+                {% endwith %}
+              </dl>
+            </div>
+          </div>          
+
+    
+    </div>
+{% endblock content %}
